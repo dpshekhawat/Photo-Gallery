@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Photo Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="panels">
+    <div class="panel panel1">
+      <p><u>Blue Throated Macaw</u></p>
+      <p>Let's</p>
+      <p><span>Status: Critical</span>It is, also known as the Caninde macaw or Wagler's macaw. Recent population and range estimates suggest that about 350–400 individuals remain in the wild. Its demise was brought upon by nesting competition, avian predation, and a small native range, exacerbated by indigenous hunting and capture for the pet trade.</p>
+    </div>
+    <div class="panel panel2">
+      <p><u>Giant Panda</u></p>
+      <p>Save</p>
+      <p><span>Status: Vulnerable</span>The giant panda lives in a few mountain ranges in central China. Due to farming, deforestation, and development, the giant panda has been driven out of the lowland areas where it once lived. As of December 2014, 49 giant pandas lived in captivity outside China, living in 18 zoos in 13 different countries.</p>
+    </div>
+    <div class="panel panel3">
+      <p><u>Siberian Tiger</u></p>
+      <p>All</p>
+      <p><span>Status: Critical</span>The Siberian tiger is a population of the Panthera tigris tigris subspecies that is native to the Russian Far East, Northeast China, and possibly North Korea. There was a total population of 562 wild Siberian tigers in Russia. As of 2014, about 35 individuals were estimated to range in the international border area.</p>
+    </div>
+    <div class="panel panel4">
+      <p><u>Javan Rhino</u></p>
+      <p>In</p>
+      <p><span>Status: Vulnerable</span>The Javan rhinoceros, also known as the Sunda rhinoceros or lesser one-horned rhinoceros, is a very rare member of the family Rhinocerotidae and one of five extant rhinoceroses. It is the least studied of all rhino species.There are only 58-68 individuals left in the wild, and none in captivity.</p>
+    </div>
+    <div class="panel panel5">
+      <p><u>Hawksbill Sea Turtle</u></p>
+      <p>Danger</p>
+      <p><span>Status: Critical</span>Hawksbill shells slightly change colors, depending on water temperature. While this turtle lives part of its life in the open ocean, it spends more time in shallow lagoons and coral reefs. Hawksbill shells were the primary source of tortoiseshell material used for decorative purposes. As a result of human fishing practices it is now endangered.</p>
+    </div>
+  </div>
+
+  <style>
+    html {
+      box-sizing: border-box;
+      background: #ffc600;
+      font-family: 'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+    
+    body {
+      margin: 0;
+    }
+    
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .panel {
+      background: #6B0F9C;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+      color: white;
+      text-align: center;
+      align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      transition:
+        font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+        background 0.2s;
+      font-size: 10px;
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction:column;
+    }
+
+    .panel1 { background-image:url('./blue\ throated\ macaw.jpg'); }
+    .panel2 { background-image:url('./giantpanda-001.jpg'); }
+    .panel3 { background-image:url('./sibe.jpg'); }
+    .panel4 { background-image:url('./javan\ rhino.jpg'); }
+    .panel5 { background-image:url('./hawksbill\ turtle.jpg'); }
+
+    /* Flex Children */
+    .panel > * {
+      margin: 0;
+      transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
+
+    .panel > *:first-child { transform: translateY(-100%);}
+    .panel.open-active > *:first-child { transform: translateY(0);}
+    .panel > *:last-child { transform: translateY(100%);}
+    .panel.open-active > *:last-child { transform: translateY(0);}
+
+    .panel.open-active > *:nth-child(2) { font-size: 0px;}
+    
+    .panel p {
+      font-family: 'Mukta', sans-serif;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 1.5em;
+    }
+    
+    .panel p:nth-child(2) {
+      font-size: 6em;
+    }
+
+    .panel.open {
+      flex: 5;
+      font-size: 20px;
+    }
+    .panel p:first-child {
+      font-size: 40px;
+    }
+
+    .panel p span {
+      color: red;
+    }
+
+  </style>
+
+  <script>
+    const panels = document.querySelectorAll('.panel');
+
+    function toggleOpen() {
+      this.classList.toggle('open');
+    }
+
+    function toggleActive(e) {
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active')
+      }
+    }
+    panels.forEach(panel => panel.addEventListener('touchstart', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+  </script>
+  
+</body>
+</html>
